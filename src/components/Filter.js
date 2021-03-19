@@ -3,7 +3,7 @@ import React from 'react'
 export const Filter = ({ count, size, sort, filterProducts, sortProducts }) => {
     return (
         <div className="filter">
-           <div className="filter-result">{count} Products</div>
+           <div className="filter-result">{ count } Products</div>
 
            <div className="filter-sort">
                Order {" "}

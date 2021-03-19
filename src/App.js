@@ -3,25 +3,61 @@ import data from "./data.json"
 import { useState } from "react";
 import { Products } from "./components/Products";
 import { Filter } from "./components/Filter";
+import { Cart } from "./components/Cart";
 
 
 function App() {
   
   const [dataBase, setDataBase] = useState({
     products: data.products,
+    cartItems:[],
     size: "",
     sort: "",
 
   })
  
-  const { products, size, sort } = dataBase
+  const { products, size, sort, cartItems } = dataBase
 
+  console.log(cartItems)
+
+  const addToCart = ( product ) => {
+    
+    const cartI = cartItems.slice(); 
+     
+    let alreadyInCart = false;
+
+    cartI.forEach((item) => {
+      if(item._id === product._id){
+         item.count++;
+         alreadyInCart = true;
+      }
+    });
+
+    if(!alreadyInCart){
+    
+       cartI.push({ ...product, count: 1 });
+    }
+
+    setDataBase({...dataBase, cartItems: cartI});
+  
+  }
+
+
+  const removeFromCart = ( product ) => {
+    const cartI = cartItems.slice(); 
+     
+    setDataBase({
+      ...dataBase, cartItems: cartI.filter((x)=> x._id !== product._id),
+
+    });
+  }
+ 
 
   const sortProducts = ( event ) => {
 
       const sort = event.target.value
       
-      setDataBase((dataBase) =>({
+      setDataBase((dataBase) =>({...dataBase,
           sort: sort,
           products: dataBase.products
           .slice()
@@ -47,11 +83,11 @@ function App() {
   const filterProducts = ( event ) => {
 
     if(event.target.value === ""){
-      setDataBase({size: event.target.value, products: data.products});
+      setDataBase({...dataBase, size: event.target.value, products: data.products});
     } else{
-      setDataBase({
+      setDataBase({...dataBase,
         size: event.target.value,
-        products: data.products.filter( (product) => product.availableSizes.indexOf(event.target.value)>=0 ),
+        products: data.products.filter( (product) => product.availableSizes.indexOf(event.target.value) >= 0 )
       })
 
     }
@@ -69,15 +105,16 @@ function App() {
 
       <main>
           <div className="content">
-    
+               
             <div className="main">
+              
                <Filter count={ products.length } size={ size } sort={ sort } filterProducts={filterProducts} sortProducts={sortProducts}/>
-               <Products products={ products }/>
+               <Products products={ products } addToCart={ addToCart }/>
 
             </div>
 
             <div className="sidebar">
-              Cart Items
+              <Cart cartItems={ cartItems } removeFromCart={removeFromCart}/>
 
             </div>
       
@@ -94,4 +131,3 @@ function App() {
 export default App;
 
 
-// 1:04.38

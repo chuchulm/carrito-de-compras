@@ -3,7 +3,7 @@ import formatCurrency from '../util'
 
 
 
-export const Products = ({ products }) => {
+export const Products = ({ products, addToCart }) => {
     return (
         <div>
             <ul className="products">
@@ -21,7 +21,7 @@ export const Products = ({ products }) => {
                                     <div>
                                         {formatCurrency(product.price) }
                                     </div>
-                                    <button className="button primary">
+                                    <button className="button primary" onClick={() => addToCart( product ) }>
                                         Add to cart
                                     </button>
                                 </div>
