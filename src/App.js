@@ -10,7 +10,7 @@ function App() {
   
   const [dataBase, setDataBase] = useState({
     products: data.products,
-    cartItems:[],
+    cartItems:localStorage.getItem("cartI")? JSON.parse(localStorage.getItem("cartI")) : [],
     size: "",
     sort: "",
 
@@ -39,8 +39,15 @@ function App() {
     }
 
     setDataBase({...dataBase, cartItems: cartI});
-  
+    localStorage.setItem("cartI", JSON.stringify( cartI ));
   }
+
+  
+  const createOrder = ({ name }) =>{
+    alert( "need to save order for"   +   name);
+  }
+
+  console.log(createOrder)
 
 
   const removeFromCart = ( product ) => {
@@ -50,6 +57,7 @@ function App() {
       ...dataBase, cartItems: cartI.filter((x)=> x._id !== product._id),
 
     });
+    localStorage.setItem("cartI", JSON.stringify( cartI.filter((x)=> x._id !== product._id) ));
   }
  
 
@@ -114,7 +122,7 @@ function App() {
             </div>
 
             <div className="sidebar">
-              <Cart cartItems={ cartItems } removeFromCart={removeFromCart}/>
+              <Cart cartItems={ cartItems } removeFromCart={ removeFromCart } createOrder ={ createOrder }/>
 
             </div>
       
