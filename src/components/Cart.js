@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import formatCurrency from '../util'
+import Fade from 'react-reveal/Fade';
+
+
+
 
 export const Cart = ({ cartItems, removeFromCart ,createOrder}) => {
   
 
-   
+  const [state, setState] = useState({
+    showCheckout: false,
+    name: '',
+    email: '',
+    address: '',
 
-    
-    const [state, setState] = useState({
-        showCheckout: false,
-        name: '',
-        email: '',
-        address: '',
-    
-    })
+  })
  
   
 
@@ -68,30 +69,32 @@ export const Cart = ({ cartItems, removeFromCart ,createOrder}) => {
 
                 <div>
                     <div className="cart">
-                        <ul className="cart-items">
-                           {
-                               cartItems.map(item =>(
-                                   <li key={item.id}>
-                                        <div>
-                                            <img src={item.image} alt={item.title}/>
-                                        </div>
-                                        <div>
-
-                                            <div>{item.title}</div>
-
-                                            <div className="right" >
-                                                { formatCurrency(item.price) } x {item.count} {" "}
-                                                <button className="button" onClick={()=> removeFromCart(item)}>
-                                                     Remove
-                                                </button>
+                        <Fade left cascade>
+                            <ul className="cart-items">
+                               {
+                                   cartItems.map(item =>(
+                                       <li key={item.id}>
+                                            <div>
+                                                <img src={item.image} alt={item.title}/>
                                             </div>
-                                            
-                                        </div>
+                                            <div>
     
-                                   </li>
-                                ))
-                            }
-                        </ul>
+                                                <div>{item.title}</div>
+    
+                                                <div className="right" >
+                                                    { formatCurrency(item.price) } x {item.count} {" "}
+                                                    <button className="button" onClick={()=> removeFromCart(item)}>
+                                                         Remove
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+        
+                                       </li>
+                                    ))
+                                }
+                            </ul>
+                        </Fade>
                     </div>
                     {cartItems.length !==0 && (
                         <div>
@@ -108,49 +111,51 @@ export const Cart = ({ cartItems, removeFromCart ,createOrder}) => {
                             </div>
     
                             {showCheckout && (
-                                <div className="cart">
-                                    <form onSubmit={ handleSubmit }>
-                                        <ul className="form-container">
-                                            <li>
-                                                 <label>Email</label>
-                                                 <input
-                                                  type="email"
-                                                  required 
-                                                  onChange={handleInput}
-                                                  name="email"
-                                                  value={email}
-                                                  />
-                                            </li>
-
-                                            <li>
-                                                 <label>Name</label>
-                                                 <input
-                                                  type="text"
-                                                  required 
-                                                  placeholder=""
-                                                  onChange={handleInput}
-                                                  name="name"
-                                                  value={name}
-                                                  />
-                                            </li>
-
-                                            <li>
-                                                 <label>Address</label>
-                                                 <input
-                                                  type="text"
-                                                  required 
-                                                  onChange={handleInput}
-                                                  name="address"
-                                                  value={address}
-                                                  />
-                                            </li>
-
-                                            <li>
-                                                <button className="button primary" type="submit" >Checkout</button>
-                                            </li>
-                                        </ul>
-                                    </form>
-                                </div>
+                                <Fade right cascade>
+                                    <div className="cart">
+                                        <form onSubmit={ handleSubmit }>
+                                            <ul className="form-container">
+                                                <li>
+                                                     <label>Email</label>
+                                                     <input
+                                                      type="email"
+                                                      required 
+                                                      onChange={handleInput}
+                                                      name="email"
+                                                      value={email}
+                                                      />
+                                                </li>
+    
+                                                <li>
+                                                     <label>Name</label>
+                                                     <input
+                                                      type="text"
+                                                      required 
+                                                      placeholder=""
+                                                      onChange={handleInput}
+                                                      name="name"
+                                                      value={name}
+                                                      />
+                                                </li>
+    
+                                                <li>
+                                                     <label>Address</label>
+                                                     <input
+                                                      type="text"
+                                                      required 
+                                                      onChange={handleInput}
+                                                      name="address"
+                                                      value={address}
+                                                      />
+                                                </li>
+    
+                                                <li>
+                                                    <button className="button primary" type="submit" >Checkout</button>
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </Fade>
                             )}
                         </div>
                     )}

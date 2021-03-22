@@ -47,7 +47,7 @@ function App() {
     alert( "need to save order for"   +   name);
   }
 
-  console.log(createOrder)
+  
 
 
   const removeFromCart = ( product ) => {
