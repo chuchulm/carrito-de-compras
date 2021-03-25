@@ -18,7 +18,7 @@ function App() {
  
   const { products, size, sort, cartItems } = dataBase
 
-  console.log(cartItems)
+  
 
   const addToCart = ( product ) => {
     
@@ -86,7 +86,7 @@ function App() {
       }));
   };
 
-
+  
 
   const filterProducts = ( event ) => {
 
@@ -105,34 +105,36 @@ function App() {
 
 
   return (
-    <div className="grid-container">
-
-      <header>
-        <a href="/">React Shopping cart</a>
-      </header>
-
-      <main>
-          <div className="content">
-               
-            <div className="main">
-              
-               <Filter count={ products.length } size={ size } sort={ sort } filterProducts={filterProducts} sortProducts={sortProducts}/>
-               <Products products={ products } addToCart={ addToCart }/>
-
+   
+      <div className="grid-container">
+  
+        <header>
+          <a href="/">React Shopping cart</a>
+        </header>
+  
+        <main>
+            <div className="content">
+                 
+              <div className="main">
+                
+                 <Filter count={ products.length } size={ size } sort={ sort } filterProducts={filterProducts} sortProducts={sortProducts}/>
+                 <Products products={ products } addToCart={ addToCart }/>
+  
+              </div>
+  
+              <div className="sidebar">
+                <Cart cartItems={ cartItems } removeFromCart={ removeFromCart } createOrder ={ createOrder }/>
+  
+              </div>
+        
             </div>
-
-            <div className="sidebar">
-              <Cart cartItems={ cartItems } removeFromCart={ removeFromCart } createOrder ={ createOrder }/>
-
-            </div>
-      
-          </div>
-      </main>
-
-      <footer>
-        all right is reserved.
-      </footer>
-    </div>
+        </main>
+  
+        <footer>
+          all right is reserved.
+        </footer>
+      </div>
+   
   );
 }
 

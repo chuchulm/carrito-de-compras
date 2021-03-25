@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import formatCurrency from '../util'
 import Fade from 'react-reveal/Fade';
 
@@ -73,7 +73,7 @@ export const Cart = ({ cartItems, removeFromCart ,createOrder}) => {
                             <ul className="cart-items">
                                {
                                    cartItems.map(item =>(
-                                       <li key={item.id}>
+                                       <li key={item._id}>
                                             <div>
                                                 <img src={item.image} alt={item.title}/>
                                             </div>
